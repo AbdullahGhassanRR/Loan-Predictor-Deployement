@@ -1,10 +1,14 @@
 import streamlit as st
+import gdown
 import joblib
 import numpy as np
 from sklearn.preprocessing import QuantileTransformer
 from sklearn.ensemble import RandomForestClassifier
 
-model = joblib.load('best_model.pkl')
+url = 'https://drive.google.com/uc?id=1XnV4cRtWfh7V9v30EoKSyXj0PYS0S4-l'
+output = 'best_model.pkl'
+gdown.download(url, output, quiet=False)
+model = joblib.load(output)
 
 
 education_map = {'High School': 0, 'Associate': 1, 'Bachelor': 2, 'Master': 3, 'Doctorate': 4}
@@ -18,8 +22,8 @@ intent_map = {
 def repair_gender(gender):
     gender = gender.lower().replace(" ", "")
     if "fe" in gender or "fem" in gender:
-        return 0  # Female
-    return 1  # Male
+        return 0  
+    return 1  
 
 def scale_input(input_user):
     scaler = QuantileTransformer(output_distribution='normal')
