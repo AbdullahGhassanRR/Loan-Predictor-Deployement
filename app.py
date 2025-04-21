@@ -5,11 +5,15 @@ import numpy as np
 from sklearn.preprocessing import QuantileTransformer
 from sklearn.ensemble import RandomForestClassifier
 
-url = 'https://drive.google.com/uc?id=1XnV4cRtWfh7V9v30EoKSyXj0PYS0S4-l'
-output = 'best_model.pkl'
-gdown.download(url, output, quiet=False)
-model = joblib.load(output)
 
+@st.cache_resource
+def load_model():
+    url = 'https://drive.google.com/uc?id=1XnV4cRtWfh7V9v30EoKSyXj0PYS0S4-l'
+    output = 'best_model.pkl'
+    if not os.path.exists(output):
+        gdown.download(url, output, quiet=False)
+
+    return joblib.load(output)
 
 education_map = {'High School': 0, 'Associate': 1, 'Bachelor': 2, 'Master': 3, 'Doctorate': 4}
 home_map = {'MORTGAGE': 0.115961, 'OTHER': 0.333333, 'OWN': 0.075229, 'RENT': 0.323977}
