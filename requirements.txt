@@ -1,0 +1,5 @@
+streamlit
+gdown
+joblib
+numpy
+scikit-learn
