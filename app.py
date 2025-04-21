@@ -67,6 +67,7 @@ def main():
         ]
 
         scaled_features = scale_input(features)
+        model = load_model()
         prediction = model.predict([scaled_features])[0]
 
         st.success(f"The predicted loan status is: {prediction}")
